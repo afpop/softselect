@@ -1,0 +1,70 @@
+
+.softselect .controls{
+    font-size: 9px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.softselect span:hover{
+    text-decoration: underline;
+}
+.softselect .selected-count{
+    margin: auto;
+}
+
+.softselect .selected-placeholder{
+    margin:auto;
+}
+
+.softselect .selected-box{
+
+    padding: 5px 3px 5px 10px;
+    height: auto;
+    text-align: left;
+}
+
+.softselect ul{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+.softselect .selected-box ul li{
+
+    margin-left: 2px;
+    float:left;
+    display: block;
+    background-color: rgb(230, 126, 34);
+    color: white;
+    font-size: 11px;
+    max-width: 60px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.softselect .dropdown .dropdown-menu {
+    position: fixed;
+    max-height: 150px;
+    overflow: auto;
+}
+
+.softselect .dropdown ul li {
+	text-align: left !important;
+    padding: 4px 4px 4px 8px;
+}
+
+.softselect .dropdown ul li:hover {
+    cursor: pointer;
+    background-color: rgba(230, 126, 34, 0.8);
+    color: white;
+    font-weight: bold;
+}
+
+
+
+
+

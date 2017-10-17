@@ -1,0 +1,53 @@
+
+<div class="softselect">
+
+    <div class="dropdown">
+
+
+            <div class="form-control selected-box " placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown">
+
+                <label ng-if="selected.length > 2" class="selected-count">
+
+                    {{selected.length === data.length ? "Todos" : selected.length}} selecionados
+
+                </label>
+
+                <label ng-if="selected.length <= 0" class="selected-placeholder">Selecionar...</label>
+
+                <ul ng-if="selected.length > 0 && selected.length <= 2">
+
+                    <li ng-repeat="item in selected">
+
+                        {{item[object.text]}}
+
+                    </li>
+
+                    &nbsp;
+
+                </ul>
+
+            </div>
+
+            <div class="dropdown-menu dropdown-menu-left">
+
+                <div class="controls" ng-show="data.length > 5 || selected >= 5">
+
+                    <span ng-click="ss_selectAll()">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+
+                </div>
+
+                <ul>
+
+                    <li class="item" ng-repeat="item in data" ng-click="ss_select(item)">
+
+                        {{("00" + $index).slice(-2)}} - {{item[object.text]}} <span class="fa fa-check" ng-if="item.selected" style="color: #2ecc71" ></span>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+    </div>
+
+</div>

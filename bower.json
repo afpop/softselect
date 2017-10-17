@@ -1,0 +1,22 @@
+{
+  "name": "softselect",
+  "authors": [
+    "Joao Paulo Oliveira"
+  ],
+  "description": "Select directive with Angular, Bootstrap and Font Awesome",
+  "main": ["softselect.js", "softselect.css"],
+	"dependencies": {
+		"angular": "~1.5.8"
+	},
+  "keywords": ["soft", "select" ],
+  "license": "MIT",
+  "homepage": "none",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
