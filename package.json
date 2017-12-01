@@ -1,0 +1,28 @@
+{
+  "name": "softselect",
+  "version": "0.0.1",
+  "description": "Diretiva de select para Angularjs com Bootstrap e Font Awesome.",
+  "main": "softselect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "softwillians",
+    "soft",
+    "select",
+    "angular",
+    "angularjs"
+  ],
+  "author": "João Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  }
+}

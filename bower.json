@@ -1,15 +1,29 @@
 {
   "name": "softselect",
+  "version": "0.0.2",
   "authors": [
-    "Joao Paulo Oliveira"
+    "Joao Paulo Oliveira",
+    "Nicolas Fontes",
+    "Leandro Rosemberg"
   ],
   "description": "Select directive with Angular, Bootstrap and Font Awesome",
-  "main": ["softselect.js", "softselect.css"],
-	"dependencies": {
-		"angular": "~1.5.8"
-	},
-  "keywords": ["soft", "select" ],
-  "license": "MIT",
+  "main": [
+    "./dist/softselect.js",
+    "./dist/softselect.css"
+  ],
+  "dependencies": {
+    "angular": ">1.5.8",
+    "angular-sanitize": "*",
+    "font-awesome": "*"
+  },
+  "keywords": [
+    "soft",
+    "select",
+    "angular",
+    "angularjs",
+    "softwillians"
+  ],
+  "license": "Softwillians License",
   "homepage": "none",
   "private": false,
   "ignore": [
@@ -17,6 +31,18 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "config",
+    "playground",
+    "src",
+    "test",
+    ".travis.yml",
+    ".gitignore",
+    ".jshintrc",
+    "CHANGELOG.md",
+    "Gruntfile.js",
+    "package.json",
+    "build",
+    "mock"
   ]
 }

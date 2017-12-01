@@ -1,0 +1,144 @@
+.softselect{
+}
+
+.softselect .selected-box{
+    height: 34px;
+    text-align: left;
+    cursor: pointer;
+    padding: 0px 0px 0px 2px;
+}
+
+.disabled {
+    pointer-events: none
+}
+
+.softselect .full-h{
+    height: 100%;
+}
+
+.softselect .select-input{
+    display: inline;
+    width: 90%;
+    border: 0;
+    height: 100%;
+}
+
+
+.softselect .select-input:active{
+    border: 0;
+}
+
+.softselect .softselect-filter{
+    width: 50%;
+    max-width: 60px;
+    line-height: 5px;
+    font-size: 11px;
+    padding: 5px 5px;
+    height: 20px;
+    display:inline;
+}
+.softselect .controls{
+    font-size: 9px;
+    text-align: left;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.softselect .selected-item{
+    display:block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: normal;
+    margin: 0px;
+}
+.softselect span:hover{
+    text-decoration: underline;
+}
+.softselect .selected-count{
+    margin: auto;
+}
+
+.softselect .selected-placeholder{
+    font-weight: 100;
+    font-size:12px;
+    color: #555;
+    margin:auto;
+}
+
+
+
+
+.softselect ul{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+.softselect-caret{
+    float: right;
+    margin: 5px;
+}
+.softselect .selected-box ul li{
+
+    margin-left: 2px;
+    float:left;
+    display: block;
+    background-color: #ecf0f1;
+    color: white;
+    font-size: 11px;
+    max-width: 60px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+.softselect .dropdown .dropdown-menu {
+    margin-top: 1px;
+    position: fixed;
+    max-height: 150px;
+    overflow: auto;
+    z-index: 998;
+}
+
+.softselect .dropdown ul li {
+	text-align: left !important;
+    padding: 4px 4px 4px 8px;
+}
+
+.softselect .dropdown ul li:hover {
+    cursor: pointer;
+    background-color: #337ab7;
+    color: white;
+    font-weight: bold;
+}
+
+.scroll-4::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.scroll-4::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.scroll-4::-webkit-scrollbar-thumb
+{
+    background-color: #2980b9;
+}
+
+/** RETIRA PROPRIEDADE QUE TORNA O ELEMENTO RELATIVO AO MODAL **/
+
+.modal.in .modal-dialog {
+    -webkit-transform: none;
+    -ms-transform: none; 
+    transform: none;
+}

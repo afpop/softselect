@@ -1,0 +1,81 @@
+
+<div class="softselect" ng-class="{'disabled':ssDisabled}">
+
+    <div class="dropdown ">
+
+
+            <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown" >
+
+                <div class="full-h" ng-if="!ssMany">
+
+                    <div class="form-group has-feedback">
+
+                        <input class="form-control" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
+
+                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>
+
+                    </div>
+
+                </div>
+
+                <div class="full-h" ng-if="ssMany">
+
+                    <div class="form-group has-feedback">
+
+                        <div class="form-control">
+
+                        <label ng-if="displayPlaceHolder" class="selected-placeholder">{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}</label>
+
+                        <label ng-if="ssModel.length > 2" class="selected-count">
+
+                            {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
+
+                        </label>
+
+                        <ul ng-if="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)">
+
+                            <li ng-repeat="item in ssModel track by $index">
+
+                                {{item[ssField.text]}}
+
+                            </li>                    &nbsp;
+
+                        </ul>
+
+                    </div>
+
+                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="dropdown-menu dropdown-menu-left scroll-4">
+
+                <div class="controls">
+
+                    <input ng-show="ssData.length > 10" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
+
+                    <span ng-click="ss_selectAll()" ng-if="::ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+
+                </div>
+
+                <hr style="margin:3px;">
+
+                <ul>
+
+                    <li class="item" ng-repeat="item in getFilteredData() | filter: ssModel[ssField.text]" ng-click="ss_select(item)">
+
+                        <i class="fa fa-check" ng-if="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+    </div>
+
+</div>
