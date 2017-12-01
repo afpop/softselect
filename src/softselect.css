@@ -135,6 +135,9 @@
     background-color: #2980b9;
 }
 
+.softselect .form-group{
+    margin-bottom: 0 !important;
+}
 .softselect .form-control-feedback {
     position: absolute;
     top: 0;

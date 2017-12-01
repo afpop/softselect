@@ -135,6 +135,22 @@
     background-color: #2980b9;
 }
 
+.softselect .form-group{
+    margin-bottom: 0 !important;
+}
+.softselect .form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px !important;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+}
+
 /** RETIRA PROPRIEDADE QUE TORNA O ELEMENTO RELATIVO AO MODAL **/
 
 .modal.in .modal-dialog {
