@@ -135,6 +135,12 @@
     background-color: #2980b9;
 }
 
+.softselect .form-control-feedback{
+    display: block !important;
+    width: 34px !important;
+    line-height: 34px !important;
+}
+
 /** RETIRA PROPRIEDADE QUE TORNA O ELEMENTO RELATIVO AO MODAL **/
 
 .modal.in .modal-dialog {
