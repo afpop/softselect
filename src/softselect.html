@@ -10,7 +10,7 @@
 
                     <div class="form-group has-feedback">
 
-                        <input class="form-control" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
+                        <input class="form-control" ng-click="setFocus($event)" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
 
                         <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>
 
@@ -56,9 +56,9 @@
 
                 <div class="controls">
 
-                    <input ng-show="ssData.length > 10" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
+                    <input ng-if="ssMany" ng-show="ssData.length > 10" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
 
-                    <span ng-click="ss_selectAll()" ng-if="::ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+                    <span ng-click="ss_selectAll()" ng-if="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
 
                 </div>
 

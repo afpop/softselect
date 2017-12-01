@@ -5,7 +5,7 @@
         .directive('softselect', softSelect);
 
     /** @ngInject */
-    function softSelect($filter) {
+    function softSelect($filter, $timeout) {
 
         return {
             restrict: 'E',
@@ -247,6 +247,18 @@
 
                     scope.ssModel = [];
                     scope.displayPlaceHolder = true;
+                }
+
+                scope.setFocus = function(event){
+
+                    $timeout(function (){
+
+                        if(event.target.value !== '')
+                            event.target.select();
+                        else
+                            event.target.focus();
+
+                        }, 100);
                 }
 
             }
