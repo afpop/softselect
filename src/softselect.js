@@ -181,7 +181,8 @@
 
                     var filtered = scope.ssData;
 
-                    if (scope.ssFilter) filtered = $filter('filter')(filtered, scope.ssFilter);
+                    if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && !scope.ssMany))
+                        filtered = $filter('filter')(filtered, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text]);
 
                     filtered = $filter('limitTo')(filtered, scope.selectLimit);
 
