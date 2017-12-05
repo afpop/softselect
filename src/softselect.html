@@ -6,7 +6,7 @@
 
             <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown" >
 
-                <div class="full-h" ng-if="!ssMany">
+                <div class="full-h" ng-show="!ssMany">
 
                     <div class="form-group has-feedback">
 
@@ -18,21 +18,21 @@
 
                 </div>
 
-                <div class="full-h" ng-if="ssMany">
+                <div class="full-h" ng-show="ssMany">
 
                     <div class="form-group has-feedback">
 
                         <div class="form-control">
 
-                        <label ng-if="displayPlaceHolder" class="selected-placeholder">{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}</label>
+                        <label ng-show="displayPlaceHolder" class="selected-placeholder">{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}</label>
 
-                        <label ng-if="ssModel.length > 2" class="selected-count">
+                        <label ng-show="ssModel.length > 2" class="selected-count">
 
                             {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
 
                         </label>
 
-                        <ul ng-if="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)">
+                        <ul ng-show="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)">
 
                             <li ng-repeat="item in ssModel track by $index">
 
@@ -58,7 +58,7 @@
 
                     <input ng-show="ssData.length > 10" ng-hide="!ssMany" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
 
-                    <span ng-click="ss_selectAll()" ng-if="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+                    <span ng-click="ss_selectAll()" ng-show="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
 
                 </div>
 
@@ -68,7 +68,7 @@
 
                     <li class="item" ng-repeat="item in getFilteredData()" ng-click="ss_select(item)">
 
-                        <i class="fa fa-check" ng-if="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}
+                        <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}
 
                     </li>
 
