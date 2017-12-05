@@ -56,7 +56,7 @@
 
                 <div class="controls">
 
-                    <input ng-show="ssData.length > 10" ng-hide="ssMany == false" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
+                    <input ng-show="ssData.length > 10 && ssMany" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
 
                     <span ng-click="ss_selectAll()" ng-show="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
 
