@@ -6,7 +6,7 @@
 
             <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown" >
 
-                <div class="full-h" ng-show="!ssMany">
+                <div class="full-h" ng-hide="ssMany">
 
                     <div class="form-group has-feedback">
 
@@ -56,7 +56,7 @@
 
                 <div class="controls">
 
-                    <input ng-show="ssData.length > 10" ng-hide="!ssMany" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
+                    <input ng-show="ssData.length > 10" ng-hide="ssMany == false" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
 
                     <span ng-click="ss_selectAll()" ng-show="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
 
