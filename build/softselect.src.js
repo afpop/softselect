@@ -17,7 +17,7 @@
                 ssMany: "<?",
                 ssChange: "=",
                 ssTabindex: "=tabindex",
-                ssDisabled: "=?bind"
+                ssDisabled: "="
             },
             templateUrl: "softselect.html",
             compile: _compileFunction
@@ -33,7 +33,6 @@
                 
                 // Variaveis
                 var _lastScroll = 0;
-                scope.ssDisabled = false;
                 scope.ssFilter = '';
                 scope.selectLimit = 10;
                 scope.ssMany = scope.$eval(attributes.ssMany) || false;
@@ -265,7 +264,8 @@
             }
 
             function _postLink(scope, element, attributes) {
-           
+
+
             }
         }
 
