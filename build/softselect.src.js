@@ -88,7 +88,14 @@
 
                         var _dropdown = $(this).find('.dropdown-menu');
 
-                        _dropdown.css('top', (_button.offset().top + _button.height()) - $(window).scrollTop());
+                        var _windowHeight = $(window).height();
+
+                        var _dropTop = (_button.offset().top + _button.height()) - $(window).scrollTop();
+
+                        if(_dropTop + _dropdown.height() > _windowHeight)
+                            _dropTop -=  (_button.height() + _dropdown.height());
+
+                        _dropdown.css('top', _dropTop);
                         _dropdown.css('left', _button.offset().left);
                         _dropdown.css("min-width", _button.width());
                         _dropdown.toggleClass("open");
