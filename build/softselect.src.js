@@ -101,14 +101,6 @@
                         _dropdown.toggleClass("open");
                         _button.toggleClass("btn-open");
 
-                        if(scope.ssMany)
-                            return;
-
-                        if(!scope.ssModel[scope.ssField.text])
-                            return;
-
-                        _clearAll();
-
                     });
 
                     $(window).scroll(function () {
@@ -273,6 +265,14 @@
                             event.target.select();
                         else
                             event.target.focus();
+
+                        if(scope.ssMany)
+                            return;
+
+                        if(!scope.ssModel[scope.ssField.text])
+                            return;
+
+                        _clearAll();
 
                     }, 100);
                 }
