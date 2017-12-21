@@ -54,15 +54,17 @@
 
             <div class="dropdown-menu dropdown-menu-left scroll-4">
 
-                <div class="controls">
+                <div class="controls" ng-show="ssMany">
 
                     <input ng-show="ssData.length > 10 && ssMany" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
 
-                    <span ng-click="ss_selectAll()" ng-show="ssMany">Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+                    <span ng-click="ss_selectAll()" >Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
+
+                    <hr style="margin:3px;">
 
                 </div>
 
-                <hr style="margin:3px;">
+
 
                 <ul>
 

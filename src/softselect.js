@@ -95,11 +95,19 @@
                         if(_dropTop + _dropdown.height() > _windowHeight)
                             _dropTop -=  (_button.height() + _dropdown.height());
 
-                        _dropdown.css('top', _dropTop);
-                        _dropdown.css('left', _button.offset().left);
-                        _dropdown.css("min-width", _button.width());
+                        _dropdown.css('top', _dropTop - 4);
+                        _dropdown.css('left', _button.offset().left + 2);
+                        _dropdown.css("min-width", _button.width() - 1);
                         _dropdown.toggleClass("open");
                         _button.toggleClass("btn-open");
+
+                        if(scope.ssMany)
+                            return;
+
+                        if(!scope.ssModel[scope.ssField.text])
+                            return;
+
+                        _clearAll();
 
                     });
 
@@ -187,12 +195,13 @@
 
                     var filtered = scope.ssData;
 
-                    if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && scope.ssMany == false))
+                    if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && !scope.filterControl))
                         filtered = $filter('filter')(filtered, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text]);
 
                     filtered = $filter('limitTo')(filtered, scope.selectLimit);
 
                     filtered = $filter('orderBy')(filtered, scope.ssField.orderby);
+
 
                     return filtered;
                 }
@@ -265,7 +274,7 @@
                         else
                             event.target.focus();
 
-                        }, 100);
+                    }, 100);
                 }
 
             }

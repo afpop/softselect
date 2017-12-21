@@ -103,6 +103,8 @@
     position: fixed;
     max-height: 150px;
     overflow: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     z-index: 998;
 }
 
