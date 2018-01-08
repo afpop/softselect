@@ -10,7 +10,7 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
                 {id: 2, nome: "Nunes", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0303"}},
                 {id: 3, nome: "Miranda", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 4, nome: "Carvalho", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
-                {id: 5, nome: "Wallace", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
+                {id: 5, nome: "Walláce", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 6, nome: "Fontes", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 7, nome: "Pinto", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 8, nome: "Rosemberg", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},

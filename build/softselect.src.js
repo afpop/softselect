@@ -36,12 +36,14 @@
                 scope.ssFilter = '';
                 scope.selectLimit = 10;
                 scope.ssMany = scope.$eval(attributes.ssMany) || false;
+                scope.lastSelected = {};
 
                 // Method Binding
                 scope.getFilteredData = _getFilteredData;
                 scope.ss_select = _ssSelect;
                 scope.ss_selectAll = _ssSelectAll;
                 scope.ss_clearAll = _clearAll;
+
 
                 init();
 
@@ -62,6 +64,12 @@
                 function init() {
                     hasValue();
                     hookDropDown();
+
+                    angular.forEach(scope.ssData, function (item) {
+
+                        item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
+
+                    });
                 }
 
                 function hasValue() {
@@ -142,6 +150,7 @@
                 }
 
                 function alterarCampo() {
+
                     hasValue();
 
                     if (angular.isArray(scope.ssModel, [])) {
@@ -196,6 +205,26 @@
 
 
                     return filtered;
+                }
+
+                function removeAccents(string) {
+
+                    var mapaAcentosHex 	= {
+                        a : /[\xE0-\xE6]/g,
+                        e : /[\xE8-\xEB]/g,
+                        i : /[\xEC-\xEF]/g,
+                        o : /[\xF2-\xF6]/g,
+                        u : /[\xF9-\xFC]/g,
+                        c : /\xE7/g,
+                        n : /\xF1/g
+                    };
+
+                    for ( var letra in mapaAcentosHex ) {
+                        var expressaoRegular = mapaAcentosHex[letra];
+                        string = string.replace( expressaoRegular, letra );
+                    }
+
+                    return string;
                 }
 
                 function _ssSelect(item) {
