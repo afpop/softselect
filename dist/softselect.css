@@ -81,13 +81,14 @@
     float: right;
     margin: 5px;
 }
-.softselect .selected-box ul li{
 
-    margin-left: 2px;
+.softselect .selected-box ul .selected-item{
     float:left;
     display: block;
+    margin-left: 2px;
+    margin-top: -2px;
     background-color: #ecf0f1;
-    color: white;
+    color: black;
     font-size: 11px;
     max-width: 60px;
     white-space: nowrap;
@@ -95,7 +96,29 @@
     overflow: hidden;
     border-radius: 5px;
     border: 1px solid #ccc;
-    color: black;
+}
+
+.softselect .selected-box ul .selected-input{
+    float:left;
+    display: block;
+    padding: 0;
+    margin-left: 1px;
+    margin-top: -2px;
+    font-size: 11px;
+    max-width: 80px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border: none;
+}
+
+.softselect .selected-box ul .selected-input .filter{
+    font-size: 14px;
+    border: none;
+}
+
+.softselect .selected-box ul .selected-input .filter:focus{
+    outline: none;
 }
 
 .softselect .dropdown .dropdown-menu {
@@ -113,7 +136,7 @@
     padding: 4px 4px 4px 8px;
 }
 
-.softselect .dropdown ul li:hover {
+.softselect .dropdown ul li .item   :hover {
     cursor: pointer;
     background-color: #337ab7;
     color: white;

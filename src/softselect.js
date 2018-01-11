@@ -53,23 +53,35 @@
                 // });
 
                 scope.$watch('ssModel', function () {
+
+                    console.log("triggered");
                     alterarCampo();
                 });
 
                 scope.$watch('ssData', function () {
+
                     alterarCampo();
+
+                    _cleanAccents();
+
                 });
 
                 // Metodos Privados
                 function init() {
+
                     hasValue();
+
                     hookDropDown();
+                }
+
+                function _cleanAccents(){
 
                     angular.forEach(scope.ssData, function (item) {
 
                         item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
 
                     });
+
                 }
 
                 function hasValue() {
@@ -87,6 +99,8 @@
                         scope.displayPlaceHolder = false;
 
                 }
+
+                var button;
 
                 function hookDropDown() {
 
@@ -109,6 +123,9 @@
                         _dropdown.toggleClass("open");
                         _button.toggleClass("btn-open");
 
+                        $(this).find('.filter').focus();
+
+                        button = this;
                     });
 
                     $(window).scroll(function () {
@@ -250,6 +267,8 @@
                             scope.ssModel = scope.ssModel.filter(function (array_item) { return array_item.id !== item.id; });
                             item.selected = false;
                         }
+
+                        $timeout(function (){ $(button).find('.selected-box').click()}, 0);
                     }
                     else {
                         _clearAll();
@@ -261,7 +280,9 @@
                         scope.ssChange(item);
 
                     hasValue();
+
                     scope.ssFilter = "";
+
                     _getFilteredData();
                 }
 

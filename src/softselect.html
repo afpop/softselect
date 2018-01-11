@@ -24,21 +24,26 @@
 
                         <div class="form-control">
 
-                        <label ng-show="displayPlaceHolder" class="selected-placeholder">{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}</label>
+                        <ul>
 
-                        <label ng-show="ssModel.length > 2" class="selected-count">
+                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">
 
-                            {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
+                                <span ng-click="ss_clearAll()"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
 
-                        </label>
+                            </li>
+                            <!--  ng-show="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)" -->
 
-                        <ul ng-show="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)">
+                            <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">
 
-                            <li ng-repeat="item in ssModel track by $index">
+                                <span class="fa fa-times" ng-click="ss_select(item)"></span> {{item[ssField.text]}}
 
-                                {{item[ssField.text]}}
+                            </li>
 
-                            </li>                    &nbsp;
+                            <li class="selected-input">
+
+                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
+
+                            </li>&nbsp;
 
                         </ul>
 
@@ -53,18 +58,6 @@
             </div>
 
             <div class="dropdown-menu dropdown-menu-left scroll-4">
-
-                <div class="controls" ng-show="ssMany">
-
-                    <input ng-show="ssData.length > 10 && ssMany" class="form-control softselect-filter" ng-model="ssFilter" placeholder="Procurar...">
-
-                    <span ng-click="ss_selectAll()" >Selecionar todos</span> | <span ng-click="ss_clearAll()">Limpar</span>
-
-                    <hr style="margin:3px;">
-
-                </div>
-
-
 
                 <ul>
 
