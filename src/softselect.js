@@ -333,7 +333,7 @@
 
                         scope.$apply();
 
-                    }, 100);
+                    }, 200);
                 }
 
                 scope.lostFocus = function(){
@@ -345,7 +345,7 @@
                                 scope.ssModel[scope.ssField.text] = scope.selectedText;
                         }
 
-                    }, 200);
+                    }, 100);
 
                 }
 
