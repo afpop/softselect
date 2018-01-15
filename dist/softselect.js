@@ -127,7 +127,8 @@
                         _dropdown.toggleClass("open");
                         _button.toggleClass("btn-open");
 
-                        $(this).find('.filter').focus();
+                        if(scope.ssMany == true)
+                            $(this).find('.filter').focus();
 
                         button = this;
                     });
