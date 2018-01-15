@@ -317,11 +317,6 @@
 
                     $timeout(function (){
 
-                        if(event.target.value !== '')
-                            event.target.select();
-                        else
-                            event.target.focus();
-
                         if(scope.ssMany)
                             return;
 
@@ -332,6 +327,9 @@
                         scope.selectedText = scope.ssModel[scope.ssField.text];
 
                         scope.ssModel[scope.ssField.text] = '';
+
+                        if(event.target.value !== '')
+                            event.target.focus();
 
                         scope.$apply();
 
