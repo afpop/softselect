@@ -317,11 +317,6 @@
 
                     $timeout(function (){
 
-                        if(event.target.value !== '')
-                            event.target.select();
-                        else
-                            event.target.focus();
-
                         if(scope.ssMany)
                             return;
 
@@ -346,6 +341,8 @@
                             if(scope.ssModel[scope.ssField.text] !== scope.selectedText)
                                 scope.ssModel[scope.ssField.text] = scope.selectedText;
                         }
+
+                        console.log("Lost Focus");
                     }, 200);
 
                 }

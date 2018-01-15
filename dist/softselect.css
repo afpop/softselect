@@ -136,7 +136,7 @@
     padding: 4px 4px 4px 8px;
 }
 
-.softselect .dropdown ul li .item   :hover {
+.softselect .dropdown ul .item:hover {
     cursor: pointer;
     background-color: #337ab7;
     color: white;
