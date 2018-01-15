@@ -54,8 +54,8 @@
 
                 scope.$watch('ssModel', function () {
 
-                    console.log("triggered");
                     alterarCampo();
+
                 });
 
                 scope.$watch('ssData', function () {
@@ -76,11 +76,15 @@
 
                 function _cleanAccents(){
 
-                    angular.forEach(scope.ssData, function (item) {
+                    if(angular.isDefined(scope.ssData)){
 
-                        item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
+                        angular.forEach(scope.ssData, function (item) {
 
-                    });
+                            item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
+
+                        });
+
+                    }
 
                 }
 
@@ -220,7 +224,6 @@
 
                     filtered = $filter('orderBy')(filtered, scope.ssField.orderby);
 
-
                     return filtered;
                 }
 
@@ -246,6 +249,7 @@
 
                 function _ssSelect(item) {
 
+                    scope.selecting = false;
                     scope.displayPlaceHolder = false;
 
                     if (scope.ssMany) {
@@ -303,6 +307,7 @@
                         item.selected = false;
                     });
 
+                    scope.selectedText = "";
                     scope.ssModel = [];
                     scope.displayPlaceHolder = true;
                 }
@@ -322,9 +327,26 @@
                         if(!scope.ssModel[scope.ssField.text])
                             return;
 
-                        _clearAll();
+                        scope.selecting = true;
+                        scope.selectedText = scope.ssModel[scope.ssField.text];
+
+                        scope.ssModel[scope.ssField.text] = '';
+
+                        scope.$apply();
 
                     }, 100);
+                }
+
+                scope.lostFocus = function(){
+
+                    $timeout(function (){
+
+                        if(scope.selecting){
+                            if(scope.ssModel[scope.ssField.text] !== scope.selectedText)
+                                scope.ssModel[scope.ssField.text] = scope.selectedText;
+                        }
+                    }, 200);
+
                 }
 
             }

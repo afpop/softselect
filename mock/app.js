@@ -21,7 +21,7 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
                 {id: 13, nome: "Vicente", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 14, nome: "Rafael", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 15, nome: "Fernando", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
-                {id: 16, nome: "Budapest", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
+                {id: 16, nome: "André", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 17, nome: "Cavalo dourado", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}}
             ];
 

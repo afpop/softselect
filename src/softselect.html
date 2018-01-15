@@ -1,8 +1,7 @@
 
 <div class="softselect" ng-class="{'disabled': ssDisabled}">
 
-    <div class="dropdown ">
-
+    <div class="dropdown">
 
             <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown" >
 
@@ -10,9 +9,9 @@
 
                     <div class="form-group has-feedback">
 
-                        <input class="form-control" ng-click="setFocus($event)" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
+                        <input class="form-control" style="padding-left: 7px !important;" ng-click="setFocus($event)" ng-blur="lostFocus()" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
 
-                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>
+                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>
 
                     </div>
 
@@ -24,7 +23,7 @@
 
                         <div class="form-control">
 
-                        <ul>
+                        <ul style="margin-left: {{ssModel.length > 0 ? '2px' : '7px'}}">
 
                             <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">
 
@@ -41,7 +40,7 @@
 
                             <li class="selected-input" style="max-width: {{ssModel.length > 0 ? '10px' : '100%'}}">
 
-                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
+                                <input class="filter" ng-model="ssFilter" ng-blur="ssFilter = ''" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
 
                             </li>&nbsp;
 
@@ -57,7 +56,10 @@
 
             </div>
 
-            <div class="dropdown-menu dropdown-menu-left scroll-4">
+            <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll()"></span>
+
+
+        <div class="dropdown-menu dropdown-menu-left scroll-4">
 
                 <ul>
 
