@@ -40,7 +40,7 @@
 
                             <li class="selected-input" style="max-width: {{ssModel.length > 0 ? '10px' : '100%'}}">
 
-                                <input class="filter" ng-model="ssFilter" ng-blur="ssFilter = ''" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
+                                <input class="filter" ng-model="ssFilter" ng-blur="cleanFilter()" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
 
                             </li>&nbsp;
 

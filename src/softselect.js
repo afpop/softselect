@@ -349,6 +349,13 @@
 
                 }
 
+                scope.cleanFilter = function(){
+
+                    $timeout(function(){
+                        scope.ssFilter = '';
+                    }, 200);
+                }
+
             }
 
             function _postLink(scope, element, attributes) {
