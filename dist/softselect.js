@@ -80,7 +80,8 @@
 
                         angular.forEach(scope.ssData, function (item) {
 
-                            item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
+                            if(!angular.equals(item[scope.ssField.text], null))
+                                item[scope.ssField.text] = removeAccents(item[scope.ssField.text]);
 
                         });
 
@@ -240,9 +241,21 @@
                         n : /\xF1/g
                     };
 
+                    var toReplace = [ ["Á", "A"], ["À", "A"], ["Â", "A"], ["Ã", "A"],
+                        ["É", "E"], ["È", "E"], ["Ê", "E"],
+                        ["Í", "I"], ["Ì", "I"], ["Î", "I"],
+                        ["Ó", "O"], ["Ò", "O"], ["Ô", "O"], ["Õ", "O"],
+                        ["Ú", "U"], ["Ù", "U"], ["Û", "U"]];
+
                     for ( var letra in mapaAcentosHex ) {
                         var expressaoRegular = mapaAcentosHex[letra];
                         string = string.replace( expressaoRegular, letra );
+                    }
+
+                    var i;
+
+                    for(i = 0; i < toReplace.length; i++){
+                        string = string.replace(toReplace[i][0], toReplace[i][1]);
                     }
 
                     return string;
