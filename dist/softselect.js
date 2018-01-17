@@ -229,10 +229,10 @@
 
                 function customComparator(actual, expected){
 
-                    if(typeof actual !== 'object')
+                    if(typeof actual !== 'object' || actual === null)
                         return;
 
-                    if(actual[scope.ssField.text] === undefined || actual[scope.ssField.text] === null )
+                    if(angular.isUndefined(actual[scope.ssField.text]) || actual[scope.ssField.text] === null )
                         return;
 
                     actual = removeAccents(actual[scope.ssField.text]);
