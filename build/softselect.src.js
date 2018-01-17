@@ -62,8 +62,6 @@
 
                     alterarCampo();
 
-                    _cleanAccents();
-
                 });
 
                 // Metodos Privados
@@ -220,13 +218,27 @@
                     var filtered = scope.ssData;
 
                     if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && !scope.filterControl))
-                        filtered = $filter('filter')(filtered, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text]);
+                        filtered = $filter('filter')(filtered, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text], customComparator);
 
                     filtered = $filter('limitTo')(filtered, scope.selectLimit);
 
                     filtered = $filter('orderBy')(filtered, scope.ssField.orderby);
 
                     return filtered;
+                }
+
+                function customComparator(actual, expected){
+
+                    if(typeof actual !== 'object')
+                        return;
+
+                    if(actual[scope.ssField.text] === undefined || actual[scope.ssField.text] === null )
+                        return;
+
+                    actual = removeAccents(actual[scope.ssField.text]);
+                    expected = removeAccents(expected);
+
+                    return actual.indexOf(expected) > -1;
                 }
 
                 function removeAccents(string) {
@@ -258,7 +270,7 @@
                         string = string.replace(toReplace[i][0], toReplace[i][1]);
                     }
 
-                    return string;
+                    return string.toUpperCase();
                 }
 
                 function _ssSelect(item) {

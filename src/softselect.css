@@ -8,8 +8,12 @@
     padding: 0px 0px 0px 2px;
 }
 
-.disabled {
-    pointer-events: none
+.softselect.disabled {
+    pointer-events: none;
+}
+
+.softselect.disabled .form-control, .softselect.disabled .filter{
+    background-color: #e7e7e7;
 }
 
 .softselect .full-h{
