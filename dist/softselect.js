@@ -345,8 +345,7 @@
                         if(scope.ssMany)
                             return;
 
-                        if(event.target.value !== '')
-                            event.target.focus();
+                        event.target.focus();
 
                         if(!scope.ssModel[scope.ssField.text])
                             return;
