@@ -345,6 +345,9 @@
                         if(scope.ssMany)
                             return;
 
+                        if(event.target.value !== '')
+                            event.target.focus();
+
                         if(!scope.ssModel[scope.ssField.text])
                             return;
 
@@ -352,9 +355,6 @@
                         scope.selectedText = scope.ssModel[scope.ssField.text];
 
                         scope.ssModel[scope.ssField.text] = '';
-
-                        if(event.target.value !== '')
-                            event.target.focus();
 
                         scope.$apply();
 
