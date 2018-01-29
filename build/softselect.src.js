@@ -338,7 +338,8 @@
                     scope.selectedText = "";
                     scope.ssModel = [];
 
-                    event.stopPropagation();
+                    if(angular.isDefined(event))
+                        event.stopPropagation();
                 }
 
                 var handler = function(event) {
