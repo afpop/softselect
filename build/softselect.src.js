@@ -354,11 +354,6 @@
                             if(!scope.isOpen)
                                 return;
 
-                            if(scope.selecting) {
-                                scope.selecting = false;
-                                return;
-                            }
-
                             scope.isOpen = false;
 
                             if(scope.ssModel[scope.ssField.text] !== scope.selectedText)
