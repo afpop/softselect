@@ -53,19 +53,20 @@
                     if(scope.first)
                     {
                         scope.dropdown = event.currentTarget;
-                        scope.dropdownMenu = dropdown.querySelector(".softdown-menu");
-                        scope.scrollParent = getScrollParent(dropdown, true);
+                        scope.dropdownMenu = scope.dropdown.querySelector(".softdown-menu");
+                        scope.scrollParent = getScrollParent(scope.dropdown, true);
+
                         hookDropDown();
+
+                        if(scope.ssMany)
+                            scope.inputFilter = scope.dropdown.querySelector(".filter");
+                        else
+                            scope.inputFilter = scope.dropdown.querySelector(".form-control");
+
                         scope.first = false;
                     }
 
-
-                    if(scope.ssMany)
-                        scope.inputFilter = dropdown.querySelector(".filter");
-                    else
-                        scope.inputFilter = dropdown.querySelector(".form-control");
-
-                    renderDropDownMenu(dropdown, dropdownMenu);
+                    renderDropDownMenu( scope.dropdown, scope.dropdownMenu);
 
                     if(!scope.isOpen)
                     {
