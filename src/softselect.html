@@ -1,7 +1,7 @@
 
 <div class="softselect" ng-class="{'disabled': ssDisabled}">
 
-    <div class="softdown" ng-click="open($event)">
+    <div class="softdown" ng-click="open($event)" ng-keypress="$event.stopPropagation()">
 
         <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >
 
