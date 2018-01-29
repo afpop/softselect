@@ -53,6 +53,8 @@
 
                     if(scope.ssMany)
                         scope.inputFilter = dropdown.querySelector(".filter");
+                    else
+                        scope.inputFilter = dropdown.querySelector(".form-control");
 
                     renderDropDownMenu(dropdown, dropdownMenu);
 
@@ -78,6 +80,8 @@
                             scope.selecting = false;
                     }
 
+                    if(scope.ssMany)
+                        scope.inputFilter.focus();
                 };
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
@@ -338,8 +342,13 @@
                     scope.selectedText = "";
                     scope.ssModel = [];
 
+
                     if(angular.isDefined(event))
+                    {
+                        scope.isOpen = false;
+                        scope.selecting = false;
                         event.stopPropagation();
+                    }
                 }
 
                 var handler = function(event) {
@@ -353,6 +362,11 @@
 
                             if(!scope.isOpen)
                                 return;
+
+                            if(scope.selecting) {
+                                scope.selecting = false;
+                                return;
+                            }
 
                             scope.isOpen = false;
 

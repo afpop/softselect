@@ -53,6 +53,8 @@
 
                     if(scope.ssMany)
                         scope.inputFilter = dropdown.querySelector(".filter");
+                    else
+                        scope.inputFilter = dropdown.querySelector(".form-control");
 
                     renderDropDownMenu(dropdown, dropdownMenu);
 
@@ -78,6 +80,8 @@
                             scope.selecting = false;
                     }
 
+                    if(scope.ssMany)
+                        scope.inputFilter.focus();
                 };
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
@@ -338,8 +342,13 @@
                     scope.selectedText = "";
                     scope.ssModel = [];
 
+
                     if(angular.isDefined(event))
+                    {
+                        scope.isOpen = false;
+                        scope.selecting = false;
                         event.stopPropagation();
+                    }
                 }
 
                 var handler = function(event) {
@@ -353,6 +362,11 @@
 
                             if(!scope.isOpen)
                                 return;
+
+                            if(scope.selecting) {
+                                scope.selecting = false;
+                                return;
+                            }
 
                             scope.isOpen = false;
 
@@ -378,4 +392,4 @@
     }
 
 })();
-angular.module('softselect.directive').run(['$templateCache', function($templateCache) {$templateCache.put('softselect.html','\n<div class="softselect" ng-class="{\'disabled\': ssDisabled}">\n\n    <div class="softdown" ng-click="open($event)" ng-keypress="$event.stopPropagation()">\n\n        <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >\n\n                <div class="full-h" ng-hide="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <input type="text" class="form-control" style="padding-left: 7px !important;" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : \'Selecionar...\'}}">\n\n                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n                <div class="full-h" ng-show="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <div class="form-control">\n\n                        <ul style="margin-left: {{ssModel.length > 0 ? \'2px\' : \'7px\'}}">\n\n                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">\n\n                                <span ng-click="ss_clearAll()"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados\n\n                            </li>\n\n                            <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">\n\n                                <span class="fa fa-times" ng-click="ss_select(item)"></span> {{item[ssField.text]}}\n\n                            </li>\n\n                            <li class="selected-input" style="margin-left: 2px; max-width: {{ssModel.length > 0 ? \'10px\' : \'100%\'}}">\n\n                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? \'\' : \'Selecionar...\'}}">\n\n                            </li>&nbsp;\n\n                        </ul>\n\n                    </div>\n\n                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll()"></span>\n\n        <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + \'px\', left: dropLeftFixed + \'px\', minWidth: dropWidthFixed + \'px\'}">\n\n                <ul>\n\n                    <li class="item" ng-repeat="item in filteredData" ng-click="ss_select(item)">\n\n                        <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}\n\n                    </li>\n\n                </ul>\n\n            </div>\n\n    </div>\n\n</div>\n');}]);
+angular.module('softselect.directive').run(['$templateCache', function($templateCache) {$templateCache.put('softselect.html','\n<div class="softselect" ng-class="{\'disabled\': ssDisabled}">\n\n    <div class="softdown" ng-click="open($event)" ng-keypress="$event.stopPropagation()">\n\n        <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >\n\n                <div class="full-h" ng-hide="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <input type="text" class="form-control" style="padding-left: 7px !important;" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : \'Selecionar...\'}}">\n\n                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n                <div class="full-h" ng-show="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <div class="form-control">\n\n                        <ul style="margin-left: {{ssModel.length > 0 ? \'2px\' : \'7px\'}}">\n\n                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">\n\n                                <span ng-click="ss_clearAll($event)"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados\n\n                            </li>\n\n                            <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">\n\n                                <span class="fa fa-times" ng-click="ss_select(item)"></span> {{item[ssField.text]}}\n\n                            </li>\n\n                            <li class="selected-input" style="margin-left: 2px; max-width: {{ssModel.length > 0 ? \'10px\' : \'100%\'}}">\n\n                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? \'\' : \'Selecionar...\'}}">\n\n                            </li>&nbsp;\n\n                        </ul>\n\n                    </div>\n\n                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)"></span>\n\n        <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + \'px\', left: dropLeftFixed + \'px\', minWidth: dropWidthFixed + \'px\'}">\n\n                <ul>\n\n                    <li class="item" ng-repeat="item in filteredData" ng-click="ss_select(item)">\n\n                        <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}\n\n                    </li>\n\n                </ul>\n\n            </div>\n\n    </div>\n\n</div>\n');}]);

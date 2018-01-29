@@ -27,7 +27,7 @@
 
                             <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">
 
-                                <span ng-click="ss_clearAll()"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
+                                <span ng-click="ss_clearAll($event)"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
 
                             </li>
 
@@ -55,7 +55,7 @@
 
             </div>
 
-        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll()"></span>
+        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)"></span>
 
         <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + 'px', left: dropLeftFixed + 'px', minWidth: dropWidthFixed + 'px'}">
 
