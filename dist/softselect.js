@@ -20,17 +20,8 @@
                 ssDisabled: "="
             },
             templateUrl: "softselect.html",
-            compile: _compileFunction
-        };
+            link: function(scope, element, attributes){
 
-        function _compileFunction(tElement, tAttributes) {
-            return {
-                pre: _preLink,
-                post: _postLink
-            }
-
-            function _preLink(scope, element, attributes) {
-                
                 // Variaveis
                 var _lastScroll = 0;
                 scope.ssFilter = '';
@@ -159,7 +150,7 @@
 
                                 if (scope.selectLimit < scope.ssData.length) {
 
-                                    
+
                                     scope.$apply(function () {
                                         scope.selectLimit = scope.selectLimit + 10;
                                     });
@@ -340,6 +331,9 @@
 
                         scope.$apply(function(){
 
+                            if(!scope.isOpen)
+                                return;
+
                             if(scope.selecting) {
                                 scope.selecting = false;
                                 return;
@@ -363,14 +357,9 @@
                 scope.$on('$destroy', function() {
                     $document.off('click', handler);
                 });
-            }
-
-            function _postLink(scope, element, attributes) {
-
 
             }
-        }
-
+        };
     }
 
 })();
