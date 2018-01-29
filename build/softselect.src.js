@@ -29,6 +29,7 @@
                 scope.ssMany = scope.$eval(attributes.ssMany) || false;
                 scope.lastSelected = {};
                 scope.isOpen = false;
+                scope.filteredData = [];
 
                 // Method Binding
                 scope.getFilteredData = _getFilteredData;
@@ -77,6 +78,7 @@
                             scope.selecting = false;
                     }
 
+                    _getFilteredData();
                 };
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
@@ -112,6 +114,21 @@
 
                     alterarCampo();
 
+                    if(angular.isDefined(scope.ssData) && scope.ssData.length > 0)
+                        _getFilteredData();
+                });
+
+                scope.$watch('ssModel[ssField.text]', function () {
+
+                    if(angular.isDefined(scope.ssModel) && angular.isDefined(scope.ssField.text))
+                        _getFilteredData();
+
+                });
+
+                scope.$watch('ssFilter', function(){
+
+                    if(angular.isDefined(scope.ssFilter))
+                        _getFilteredData();
                 });
 
                 // Metodos Privados
@@ -153,6 +170,8 @@
 
                                     scope.$apply(function () {
                                         scope.selectLimit = scope.selectLimit + 10;
+
+                                        _getFilteredData();
                                     });
 
                                     if (_scrollHeight != _lastScroll)
@@ -203,20 +222,16 @@
                     }
                 }
 
-                // Metodos expostos ao DOM
-
                 function _getFilteredData() {
 
-                    var filtered = scope.ssData;
+                    scope.filteredData = scope.ssData;
 
                     if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && !scope.filterControl))
-                        filtered = $filter('filter')(filtered, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text], customComparator);
+                        scope.filteredData = $filter('filter')(scope.ssData, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text], customComparator);
 
-                    filtered = $filter('limitTo')(filtered, scope.selectLimit);
+                    scope.filteredData = $filter('limitTo')(scope.filteredData, scope.selectLimit);
 
-                    filtered = $filter('orderBy')(filtered, scope.ssField.orderby);
-
-                    return filtered;
+                    scope.filteredData = $filter('orderBy')(scope.filteredData, scope.ssField.orderby);
                 }
 
                 function customComparator(actual, expected){

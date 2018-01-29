@@ -61,7 +61,7 @@
 
                 <ul>
 
-                    <li class="item" ng-repeat="item in getFilteredData()" ng-click="ss_select(item)">
+                    <li class="item" ng-repeat="item in filteredData" ng-click="ss_select(item)">
 
                         <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}
 
