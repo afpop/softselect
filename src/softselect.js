@@ -329,7 +329,7 @@
                     scope.ssModel = scope.ssData;
                 }
 
-                function _clearAll() {
+                function _clearAll(event) {
 
                     angular.forEach(scope.ssData, function (item) {
                         item.selected = false;
@@ -337,6 +337,8 @@
 
                     scope.selectedText = "";
                     scope.ssModel = [];
+
+                    event.stopPropagation();
                 }
 
                 var handler = function(event) {
