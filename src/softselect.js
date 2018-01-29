@@ -5,7 +5,7 @@
         .directive('softselect', softSelect);
 
     /** @ngInject */
-    function softSelect($filter, $timeout, $document) {
+    function softSelect($filter, $timeout, $document, $window) {
 
         return {
             restrict: 'E',
@@ -43,8 +43,12 @@
                 scope.dropHeight = 0;
                 scope.inputFilter = null;
 
-                init();
+                // Metodos Privados
+                function init() {
 
+                    hookDropDown();
+
+                }
 
                 scope.open = function (event){
 
@@ -134,28 +138,18 @@
                         _getFilteredData();
                 });
 
-                // Metodos Privados
-                function init() {
-
-                    hookDropDown();
-
-                }
-
                 var button;
 
                 function hookDropDown() {
 
-                    $(window).scroll(function () {
+                    angular.element($window).bind("scroll", function() {
 
                         if(!scope.isOpen)
                             return;
 
-                        var window_scroll = $(this).scrollTop();
+                        scope.dropTopFixed = scope.dropTop - this.pageYOffset;
 
-                        scope.$apply(function(){
-                            scope.dropTopFixed = scope.dropTop - window_scroll;
-                        });
-
+                        scope.$apply();
                     });
 
                     $(".softselect .softdown .softdown-menu").scroll(function () {
@@ -386,6 +380,8 @@
                 scope.$on('$destroy', function() {
                     $document.off('click', handler);
                 });
+
+                init();
 
             }
         };
