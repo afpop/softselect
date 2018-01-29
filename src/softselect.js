@@ -50,13 +50,13 @@
 
                 scope.open = function (event){
 
-                    if(first)
+                    if(scope.first)
                     {
                         scope.dropdown = event.currentTarget;
                         scope.dropdownMenu = dropdown.querySelector(".softdown-menu");
                         scope.scrollParent = getScrollParent(dropdown, true);
                         hookDropDown();
-                        first = false;
+                        scope.first = false;
                     }
 
 
