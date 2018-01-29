@@ -78,7 +78,6 @@
                             scope.selecting = false;
                     }
 
-                    _getFilteredData();
                 };
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
@@ -341,6 +340,9 @@
                 }
 
                 var handler = function(event) {
+
+                    if(!scope.isOpen)
+                        return;
 
                     if (!element[0].contains(event.target)) {
 
