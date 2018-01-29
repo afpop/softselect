@@ -27,10 +27,14 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
 
             vm.field = { value: 'id', text: 'nome', orderby: 'nome' };
 
-            vm.funcionario = {};
+            vm.funcionario = {id: 1, nome: "Jack", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}};
             vm.funcionarios = [];
         }
 
         _gerarSelect();
+
+        vm.callback = function(teste){
+            console.log(teste);
+        }
 
     });

@@ -1,15 +1,15 @@
 
 <div class="softselect" ng-class="{'disabled': ssDisabled}">
 
-    <div class="dropdown">
+    <div class="softdown" ng-click="open($event)">
 
-            <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" data-toggle="dropdown" >
+        <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >
 
                 <div class="full-h" ng-hide="ssMany">
 
                     <div class="form-group has-feedback">
 
-                        <input class="form-control" style="padding-left: 7px !important;" ng-click="setFocus($event)" ng-blur="lostFocus()" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
+                        <input class="form-control" style="padding-left: 7px !important;" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
 
                         <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>
 
@@ -30,7 +30,6 @@
                                 <span ng-click="ss_clearAll()"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
 
                             </li>
-                            <!--  ng-show="(!displayPlaceHolder && ssModel.length > 0 && ssModel.length <= 2)" -->
 
                             <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">
 
@@ -38,9 +37,9 @@
 
                             </li>
 
-                            <li class="selected-input" style="max-width: {{ssModel.length > 0 ? '10px' : '100%'}}">
+                            <li class="selected-input" style="margin-left: 2px; max-width: {{ssModel.length > 0 ? '10px' : '100%'}}">
 
-                                <input class="filter" ng-model="ssFilter" ng-blur="cleanFilter()" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
+                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? '' : 'Selecionar...'}}">
 
                             </li>&nbsp;
 
@@ -56,10 +55,9 @@
 
             </div>
 
-            <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll()"></span>
+        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll()"></span>
 
-
-        <div class="dropdown-menu dropdown-menu-left scroll-4">
+        <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + 'px', left: dropLeftFixed + 'px', minWidth: dropWidthFixed + 'px'}">
 
                 <ul>
 
