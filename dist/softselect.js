@@ -30,6 +30,8 @@
                 scope.lastSelected = {};
                 scope.isOpen = false;
                 scope.filteredData = [];
+                scope.scrollParent = null;
+                scope.first = true;
 
                 // Method Binding
                 scope.getFilteredData = _getFilteredData;
@@ -37,23 +39,26 @@
                 scope.ss_selectAll = _ssSelectAll;
                 scope.ss_clearAll = _clearAll;
 
+                scope.dropdown = null;
+                scope.dropdownMenu = null;
                 scope.dropTop = 0;
                 scope.dropLeft = 0;
                 scope.dropWidth = 0;
                 scope.dropHeight = 0;
                 scope.inputFilter = null;
-
-                // Metodos Privados
-                function init() {
-
-                    hookDropDown();
-
-                }
+                scope.scrollParent = null;
 
                 scope.open = function (event){
 
-                    var dropdown = event.currentTarget;
-                    var dropdownMenu = dropdown.querySelector(".softdown-menu");
+                    if(first)
+                    {
+                        scope.dropdown = event.currentTarget;
+                        scope.dropdownMenu = dropdown.querySelector(".softdown-menu");
+                        scope.scrollParent = getScrollParent(dropdown, true);
+                        hookDropDown();
+                        first = false;
+                    }
+
 
                     if(scope.ssMany)
                         scope.inputFilter = dropdown.querySelector(".filter");
@@ -142,12 +147,12 @@
 
                 function hookDropDown() {
 
-                    angular.element($window).bind("scroll", function() {
+                    angular.element(scope.scrollParent).bind("scroll", function() {
 
                         if(!scope.isOpen)
                             return;
 
-                        scope.dropTopFixed = scope.dropTop - this.pageYOffset;
+                        scope.dropTopFixed = scope.dropTop - this.scrollTop;
 
                         scope.$apply();
                     });
@@ -381,8 +386,23 @@
                     $document.off('click', handler);
                 });
 
-                init();
+                function getScrollParent(element, includeHidden) {
+                    var style = getComputedStyle(element);
+                    var excludeStaticParent = style.position === "absolute";
+                    var overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
 
+                    //if (style.position === "fixed") return document.body;
+
+                    for (var parent = element; (parent = parent.parentElement);) {
+                        style = getComputedStyle(parent);
+                        if (excludeStaticParent && style.position === "static") {
+                            continue;
+                        }
+                        if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) return parent;
+                    }
+
+                    return $window;
+                }
             }
         };
     }
