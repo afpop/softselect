@@ -83,8 +83,11 @@
 
                     if(scope.ssMany === false)
                     {
-                        if(!scope.ssModel[scope.ssField.text])
-                            return;
+                        if(angular.isDefined(scope.ssModel) && angular.isDefined(scope.ssField))
+                        {
+                            if(!scope.ssModel[scope.ssField.text])
+                                return;
+                        }
                     }
 
                     scope.inputFilter.focus();
@@ -376,8 +379,11 @@
 
                         scope.isOpen = false;
 
-                        if(scope.ssModel[scope.ssField.text] !== scope.ssFilter)
-                            scope.ssFilter = scope.ssModel[scope.ssField.text];
+                        if(angular.isDefined)
+                        {
+                            if(scope.ssModel[scope.ssField.text] !== scope.ssFilter)
+                                scope.ssFilter = scope.ssModel[scope.ssField.text];
+                        }
 
                         if(scope.ssMany === true)
                             scope.ssFilter = '';
