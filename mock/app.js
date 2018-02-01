@@ -5,8 +5,7 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
 
         function _gerarSelect() {
 
-            vm.data = [
-                {id: 1, nome: "Jack", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}},
+            vm.dataA = [ {id: 1, nome: "Jack", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}},
                 {id: 2, nome: "Nunes", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0303"}},
                 {id: 3, nome: "Miranda", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 4, nome: "Carvalho", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
@@ -22,7 +21,16 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
                 {id: 14, nome: "Rafael", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 15, nome: "Fernando", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
                 {id: 16, nome: "André", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
-                {id: 17, nome: "Cavalo dourado", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}}
+                {id: 17, nome: "Cavalo dourado", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}}];
+            vm.data = [
+
+            ];
+
+            vm.dataB = [
+                {id: 1, nome: "Natal", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}},
+                {id: 2, nome: "Margarida", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0303"}},
+                {id: 3, nome: "Ethereum", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
+                {id: 4, nome: "Bitcoin", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}}
             ];
 
             vm.field = { value: 'id', text: 'nome', orderby: 'nome' };
@@ -32,6 +40,16 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
         }
 
         _gerarSelect();
+
+        vm.setarDataA = function()
+        {
+            vm.data = vm.dataA;
+        }
+
+        vm.setarDataB = function()
+        {
+            vm.data = vm.dataB;
+        }
 
         vm.callback = function(teste){
             console.log(teste);

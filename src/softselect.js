@@ -131,6 +131,8 @@
                         scope.orderedData = $filter('orderBy')(scope.ssData, scope.ssField.orderby);
 
                         _applyChange();
+
+                        _getFilteredData();
                     }
 
                 });
