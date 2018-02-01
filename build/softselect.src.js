@@ -255,14 +255,14 @@
                     angular.forEach(scope.filteredData, function(item){
 
                         var _selected = _isSelected(item) || scope.allSelected ? "<span class='fa fa-check'></span>" : "";
-                        var _html = "<li class='item' ng-click='select(" + item[scope.ssField.value] + ")'>" + item[scope.ssField.text] + _selected + "</li>";
+                        var _html = "<li class='item' ng-click='ss_select(" + item[scope.ssField.value] + ")'>" + item[scope.ssField.text] + _selected + "</li>";
 
                         angular.element( scope.dropdownList).append( $compile(_html)(scope) );
 
                     });
                 }
 
-                scope.select = function(value){
+                scope.ss_select = function(value){
 
                     var item = scope.orderedData.filter(function (array_item) { return array_item[scope.ssField.value] === value })[0];
 
