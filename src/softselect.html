@@ -31,7 +31,7 @@
 
                             </li>
 
-                            <li ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel |limitTo: 2 track by $index" ng-click="ss_select(item[ssField.value])">
+                            <li ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel | limitTo: 2 track by $index" ng-click="ss_select(item[ssField.value])">
 
                                 <span class="fa fa-times"></span> {{item[ssField.text]}}
 
