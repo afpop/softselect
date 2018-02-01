@@ -155,6 +155,11 @@
     padding: 4px 4px 4px 8px;
 }
 
+.softselect .softdown-list li span{
+    margin-left: 5px;
+    color: #2ecc71;
+}
+
 .softselect .softdown ul .item:hover {
     cursor: pointer;
     background-color: #337ab7;

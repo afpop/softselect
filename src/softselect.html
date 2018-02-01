@@ -9,7 +9,7 @@
 
                     <div class="form-group has-feedback">
 
-                        <input type="text" class="form-control" style="padding-left: 7px !important;" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : 'Selecionar...'}}">
+                        <input class="form-control" style="padding-left: 7px !important;" ng-model="ssFilter" placeholder="Selecionar...">
 
                         <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>
 
@@ -25,15 +25,15 @@
 
                         <ul style="margin-left: {{ssModel.length > 0 ? '2px' : '7px'}}">
 
-                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">
+                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;" ng-click="ss_clearAll($event)">
 
-                                <span ng-click="ss_clearAll($event)"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados
+                               <span class="fa fa-times"></span> {{ssModel.length === orderedData.length ? "Todos" : ssModel.length}} selecionados
 
                             </li>
 
-                            <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">
+                            <li ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index" ng-click="select(item[ssField.value])">
 
-                                <span class="fa fa-times" ng-click="ss_select(item)"></span> {{item[ssField.text]}}
+                                <span class="fa fa-times"></span> {{item[ssField.text]}}
 
                             </li>
 
@@ -47,25 +47,20 @@
 
                     </div>
 
-                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>
-
                     </div>
 
                 </div>
 
-            </div>
+        </div>
 
-        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)"></span>
+        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)" title="Limpar"></span>
+
+        <span ng-show="ssMany" class="fa fa-check-square selected-clear" style="cursor:pointer" ng-click="ss_selectAll($event)" title="Selecionar Todos"></span>
 
         <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + 'px', left: dropLeftFixed + 'px', minWidth: dropWidthFixed + 'px'}">
 
-                <ul>
+                <ul class="softdown-list" ng-click="$event.stopPropagation()">
 
-                    <li class="item" ng-repeat="item in filteredData" ng-click="ss_select(item)">
-
-                        <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}
-
-                    </li>
 
                 </ul>
 

@@ -37,4 +37,33 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
             console.log(teste);
         }
 
+        vm.limparModeloUnico = function(){
+
+            vm.funcionario = {};
+
+        }
+
+        vm.setarModeloUnico = function(){
+
+            vm.funcionario = {id: 1, nome: "Jack", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}};
+
+        }
+
+        vm.limparModeloMultiplo = function(){
+
+            vm.funcionarios = [];
+
+        }
+
+        vm.setarModeloMultiplo = function(){
+
+            vm.funcionarios = [
+                {id: 1, nome: "Jack", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0202"}},
+                {id: 2, nome: "Nunes", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0303"}},
+                {id: 3, nome: "Miranda", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}},
+                {id: 4, nome: "Carvalho", cargo: "Programador", contato: {tipo: "residencial", telefone: "12 90101-0404"}}
+            ];
+
+        }
+
     });

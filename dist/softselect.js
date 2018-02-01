@@ -5,7 +5,7 @@
         .directive('softselect', softSelect);
 
     /** @ngInject */
-    function softSelect($filter, $timeout, $document, $window) {
+    function softSelect($filter, $timeout, $document, $window, $compile) {
 
         return {
             restrict: 'E',
@@ -32,10 +32,10 @@
                 scope.filteredData = [];
                 scope.scrollParent = null;
                 scope.first = true;
+                scope.orderedData = [];
 
                 // Method Binding
                 scope.getFilteredData = _getFilteredData;
-                scope.ss_select = _ssSelect;
                 scope.ss_selectAll = _ssSelectAll;
                 scope.ss_clearAll = _clearAll;
 
@@ -55,6 +55,7 @@
                         scope.dropdown = event.currentTarget;
                         scope.dropdownMenu = scope.dropdown.querySelector(".softdown-menu");
                         scope.scrollParent = getScrollParent(scope.dropdown, true);
+                        scope.dropdownList = scope.dropdownMenu.querySelector(".softdown-list");
 
                         hookDropDown();
 
@@ -71,27 +72,22 @@
                     if(!scope.isOpen)
                     {
                         scope.isOpen = true;
+                        scope.ssFilter = "";
+                        _getFilteredData();
                     }
                     else if(scope.isOpen && scope.ssMany === false)
                     {
                         scope.isOpen = false;
+                        scope.ssFilter = scope.ssModel[scope.ssField.text];
                     }
 
                     if(scope.ssMany === false)
                     {
                         if(!scope.ssModel[scope.ssField.text])
                             return;
-
-                        scope.selectedText = scope.ssModel[scope.ssField.text];
-
-                        if(!scope.selecting)
-                            scope.ssModel[scope.ssField.text] = '';
-                        else
-                            scope.selecting = false;
                     }
 
-                    if(scope.ssMany)
-                        scope.inputFilter.focus();
+                    scope.inputFilter.focus();
                 };
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
@@ -119,22 +115,18 @@
 
                 scope.$watch('ssModel', function () {
 
-                    alterarCampo();
+                    _applyChange();
 
                 });
 
                 scope.$watch('ssData', function () {
 
-                    alterarCampo();
+                    if(angular.isDefined(scope.ssData))
+                    {
+                        scope.orderedData = $filter('orderBy')(scope.ssData, scope.ssField.orderby);
 
-                    if(angular.isDefined(scope.ssData) && scope.ssData.length > 0)
-                        _getFilteredData();
-                });
-
-                scope.$watch('ssModel[ssField.text]', function () {
-
-                    if(angular.isDefined(scope.ssModel) && angular.isDefined(scope.ssField.text))
-                        _getFilteredData();
+                        _applyChange();
+                    }
 
                 });
 
@@ -144,7 +136,35 @@
                         _getFilteredData();
                 });
 
-                var button;
+                function _applyChange(){
+
+                    angular.forEach(scope.orderedData, function(item) {
+                        item.selected = false;
+                    });
+
+                    if(scope.ssMany)
+                    {
+                        angular.forEach(scope.ssModel, function(item){
+
+                            var itemIndex = scope.orderedData.findIndex(function (array_item) { return array_item[scope.ssField.value] === item[scope.ssField.value] });
+
+                            if(itemIndex > -1   )
+                                scope.orderedData[itemIndex].selected = true;
+                        });
+                    }
+                    else
+                    {
+                        if(angular.isUndefined(scope.ssModel))
+                            return;
+
+                        var dataItem = scope.orderedData.filter(function (array_item) { return array_item[scope.ssField.value] === scope.ssModel[scope.ssField.value] });
+
+                        if(dataItem)
+                            dataItem.selected = true;
+
+                        scope.ssFilter = scope.ssModel[scope.ssField.text];
+                    }
+                }
 
                 function hookDropDown() {
 
@@ -168,7 +188,7 @@
 
                             if (_scrollTop >= _scrollHeight) {
 
-                                if (scope.selectLimit < scope.ssData.length) {
+                                if (scope.selectLimit < scope.orderedData.length) {
 
 
                                     scope.$apply(function () {
@@ -186,55 +206,71 @@
                     });
                 }
 
-                function alterarCampo() {
-
-                    if (angular.isArray(scope.ssModel, [])) {
-
-                        angular.forEach(scope.ssModel, function (item) {
-
-                            if (!angular.equals(scope.ssData, undefined)) {
-                                var _index = scope.ssData.findIndex(function (x) { return x[scope.ssField.value] === item[scope.ssField.value]; });
-
-                                scope.ssData[_index]['selected'] = true;
-                            }
-                        });
-
-                        if (scope.ssChange)
-                            scope.ssChange(undefined);
-                    }
-                    else if (scope.ssModel) {
-
-                        if (!angular.equals(scope.ssData, undefined)) {
-
-                            var _index = scope.ssData.findIndex(function (x) {
-                                return x[scope.ssField.value] === scope.ssModel[scope.ssField.value];
-                            });
-
-                            if (!angular.equals(scope.ssData[_index], undefined))
-                                scope.ssData[_index].selected = true;
-
-                            if (scope.ssChange)
-                                scope.ssChange(scope.ssData[_index]);
-                        }
-                    }
-                    else {
-                        scope.ssModel = {};
-
-                        if (scope.ssChange)
-                            scope.ssChange(undefined);
-                    }
-                }
-
                 function _getFilteredData() {
 
-                    scope.filteredData = scope.ssData;
+                    angular.element(scope.dropdownList).empty();
 
-                    if ((scope.ssFilter && scope.ssMany) || (scope.ssModel[scope.ssField.text] && !scope.filterControl))
-                        scope.filteredData = $filter('filter')(scope.ssData, scope.ssMany ? scope.ssFilter : scope.ssModel[scope.ssField.text], customComparator);
+                    scope.filteredData = scope.orderedData;
+
+                    if(scope.ssFilter)
+                    {
+                        scope.filteredData = $filter('filter')(scope.orderedData, scope.ssFilter, customComparator);
+                    }
 
                     scope.filteredData = $filter('limitTo')(scope.filteredData, scope.selectLimit);
 
-                    scope.filteredData = $filter('orderBy')(scope.filteredData, scope.ssField.orderby);
+                    angular.forEach(scope.filteredData, function(item){
+
+                        var _selected = _isSelected(item) ? "<span class='fa fa-check'></span>" : "";
+                        var _html = "<li class='item' ng-click='select(" + item[scope.ssField.value] + ")'>" + item[scope.ssField.text] + _selected + "</li>";
+
+                        angular.element( scope.dropdownList).append( $compile(_html)(scope) );
+
+                    });
+                }
+
+                scope.select = function(value){
+
+                    var item = scope.orderedData.filter(function (array_item) { return array_item[scope.ssField.value] === value })[0];
+
+                    if(scope.ssMany)
+                    {
+                        var selected = scope.ssModel.some(function (array_item) { return array_item[scope.ssField.value] === value });
+
+                        if(selected)
+                            scope.ssModel = scope.ssModel.filter(function (array_item) { return array_item[scope.ssField.value] !== value });
+                        else
+                            scope.ssModel.push(item);
+                    }
+                    else
+                    {
+                        if(scope.ssModel[scope.ssField.value] === value)
+                            scope.ssModel = {};
+                        else
+                            scope.ssModel = item;
+                    }
+
+                    _getFilteredData();
+
+                    if(scope.ssMany)
+                    {
+                        scope.ssFilter = "";
+                        scope.inputFilter.focus();
+                    }
+                    else
+                        scope.isOpen = false;
+                };
+
+                function _isSelected(item)
+                {
+                    if(scope.ssMany)
+                    {
+                        return scope.ssModel.some(function (array_item) { return array_item[scope.ssField.value] === item[scope.ssField.value] });
+                    }
+                    else
+                    {
+                        return scope.ssModel[scope.ssField.text] === item[scope.ssField.text];
+                    }
                 }
 
                 function customComparator(actual, expected){
@@ -283,65 +319,23 @@
                     return string.toUpperCase();
                 }
 
-                function _ssSelect(item) {
-
-                    scope.selecting = true;
-
-                    if (scope.ssMany) {
-
-                        if (!scope.ssModel)
-                            scope.ssModel = [];
-
-                        //check if the item is already selected
-                        var selected = scope.ssModel.some(function (array_item) { return item === array_item; });
-
-                        if (item.selected)
-                            selected = item.selected;
-
-                        if (!selected) //selecting item
-                        {
-                            item.selected = true; //bind new property to item showing selected
-                            scope.ssModel.push(item);
-                        }
-                        else //unselecting item
-                        {
-                            scope.ssModel = scope.ssModel.filter(function (array_item) { return array_item.id !== item.id; });
-                            item.selected = false;
-                        }
-                    }
-                    else {
-
-                        _clearAll();
-                        item.selected = true;
-                        scope.ssModel = angular.copy(item);
-                    }
-
-                    scope.ssFilter = "";
-
-                    _getFilteredData();
-
-                    if(scope.ssMany)
-                        scope.inputFilter.focus();
-                }
-
                 function _ssSelectAll() {
 
-                    angular.forEach(scope.ssData, function (item) {
-                        item.selected = true;
-                    });
+                    scope.ssModel = scope.orderedData;
 
-                    scope.ssModel = scope.ssData;
+                    event.stopPropagation();
+
+                    _getFilteredData();
                 }
 
                 function _clearAll(event) {
 
-                    angular.forEach(scope.ssData, function (item) {
-                        item.selected = false;
-                    });
+                    if(scope.ssMany)
+                        scope.ssModel = [];
+                    else
+                        scope.ssModel = {};
 
                     scope.selectedText = "";
-                    scope.ssModel = [];
-
 
                     if(angular.isDefined(event))
                     {
@@ -349,6 +343,8 @@
                         scope.selecting = false;
                         event.stopPropagation();
                     }
+
+                    _getFilteredData();
                 }
 
                 var handler = function(event) {
@@ -356,28 +352,19 @@
                     if(!scope.isOpen)
                         return;
 
-                    if (!element[0].contains(event.target)) {
+                    if (element[0].contains(event.target))
+                        return;
 
-                        scope.$apply(function(){
+                    scope.$apply(function(){
 
-                            if(!scope.isOpen)
-                                return;
+                        scope.isOpen = false;
 
-                            if(scope.selecting) {
-                                scope.selecting = false;
-                                return;
-                            }
+                        if(scope.ssModel[scope.ssField.text] !== scope.ssFilter)
+                            scope.ssFilter = scope.ssModel[scope.ssField.text];
 
-                            scope.isOpen = false;
-
-                            if(scope.ssModel[scope.ssField.text] !== scope.selectedText)
-                                scope.ssModel[scope.ssField.text] = scope.selectedText;
-
-                            if(scope.ssMany === true)
-                                scope.ssFilter = '';
-
-                        });
-                    }
+                        if(scope.ssMany === true)
+                            scope.ssFilter = '';
+                    });
 
                 };
 
@@ -409,4 +396,4 @@
     }
 
 })();
-angular.module('softselect.directive').run(['$templateCache', function($templateCache) {$templateCache.put('softselect.html','\n<div class="softselect" ng-class="{\'disabled\': ssDisabled}">\n\n    <div class="softdown" ng-click="open($event)" ng-keypress="$event.stopPropagation()">\n\n        <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >\n\n                <div class="full-h" ng-hide="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <input type="text" class="form-control" style="padding-left: 7px !important;" ng-model="ssModel[ssField.text]" placeholder="{{ssField.placeholder ? ssField.placeholder : \'Selecionar...\'}}">\n\n                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n                <div class="full-h" ng-show="ssMany">\n\n                    <div class="form-group has-feedback">\n\n                        <div class="form-control">\n\n                        <ul style="margin-left: {{ssModel.length > 0 ? \'2px\' : \'7px\'}}">\n\n                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;">\n\n                                <span ng-click="ss_clearAll($event)"><span class="fa fa-times"></span></span> {{ssModel.length === ssData.length ? "Todos" : ssModel.length}} selecionados\n\n                            </li>\n\n                            <li  ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index">\n\n                                <span class="fa fa-times" ng-click="ss_select(item)"></span> {{item[ssField.text]}}\n\n                            </li>\n\n                            <li class="selected-input" style="margin-left: 2px; max-width: {{ssModel.length > 0 ? \'10px\' : \'100%\'}}">\n\n                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? \'\' : \'Selecionar...\'}}">\n\n                            </li>&nbsp;\n\n                        </ul>\n\n                    </div>\n\n                        <span class="fa fa-caret-down form-control-feedback" aria-hidden="true"></span>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)"></span>\n\n        <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + \'px\', left: dropLeftFixed + \'px\', minWidth: dropWidthFixed + \'px\'}">\n\n                <ul>\n\n                    <li class="item" ng-repeat="item in filteredData" ng-click="ss_select(item)">\n\n                        <i class="fa fa-check" ng-show="item.selected" style="color: #2ecc71" ></i> {{item[ssField.text]}}\n\n                    </li>\n\n                </ul>\n\n            </div>\n\n    </div>\n\n</div>\n');}]);
+angular.module('softselect.directive').run(['$templateCache', function($templateCache) {$templateCache.put('softselect.html','\r\n<div class="softselect" ng-class="{\'disabled\': ssDisabled}">\r\n\r\n    <div class="softdown" ng-click="open($event)" ng-keypress="$event.stopPropagation()">\r\n\r\n        <div tabindex="{{ssTabindex}}"  class="selected-box" placeholder="" aria-describedby="basic-addon2" >\r\n\r\n                <div class="full-h" ng-hide="ssMany">\r\n\r\n                    <div class="form-group has-feedback">\r\n\r\n                        <input class="form-control" style="padding-left: 7px !important;" ng-model="ssFilter" placeholder="Selecionar...">\r\n\r\n                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>\r\n\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <div class="full-h" ng-show="ssMany">\r\n\r\n                    <div class="form-group has-feedback">\r\n\r\n                        <div class="form-control">\r\n\r\n                        <ul style="margin-left: {{ssModel.length > 0 ? \'2px\' : \'7px\'}}">\r\n\r\n                            <li ng-show="ssModel.length > 2" class="selected-item" style="max-width: 100px;" ng-click="ss_clearAll($event)">\r\n\r\n                               <span class="fa fa-times"></span> {{ssModel.length === orderedData.length ? "Todos" : ssModel.length}} selecionados\r\n\r\n                            </li>\r\n\r\n                            <li ng-show="ssModel.length > 0 && ssModel.length <= 2" class="selected-item" ng-repeat="item in ssModel track by $index" ng-click="select(item[ssField.value])">\r\n\r\n                                <span class="fa fa-times"></span> {{item[ssField.text]}}\r\n\r\n                            </li>\r\n\r\n                            <li class="selected-input" style="margin-left: 2px; max-width: {{ssModel.length > 0 ? \'10px\' : \'100%\'}}">\r\n\r\n                                <input class="filter" ng-model="ssFilter" placeholder="{{ssModel.length > 0 ? \'\' : \'Selecionar...\'}}">\r\n\r\n                            </li>&nbsp;\r\n\r\n                        </ul>\r\n\r\n                    </div>\r\n\r\n                    </div>\r\n\r\n                </div>\r\n\r\n        </div>\r\n\r\n        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)" title="Limpar"></span>\r\n\r\n        <span ng-show="ssMany" class="fa fa-check-square selected-clear" style="cursor:pointer" ng-click="ss_selectAll($event)" title="Selecionar Todos"></span>\r\n\r\n        <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + \'px\', left: dropLeftFixed + \'px\', minWidth: dropWidthFixed + \'px\'}">\r\n\r\n                <ul class="softdown-list" ng-click="$event.stopPropagation()">\r\n\r\n\r\n                </ul>\r\n\r\n            </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n');}]);
