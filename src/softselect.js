@@ -117,7 +117,8 @@
 
                     _applyChange();
 
-                    scope.ssChange(scope.ssModel);
+                    if(angular.isDefined(scope.ssChange))
+                        scope.ssChange(scope.ssModel);
                 });
 
                 scope.$watch('ssData', function () {
@@ -252,7 +253,8 @@
                         else
                             scope.ssModel.push(item);
 
-                        scope.ssChange(scope.ssModel);
+                        if(angular.isDefined(scope.ssChange))
+                            scope.ssChange(scope.ssModel);
                     }
                     else
                     {
