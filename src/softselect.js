@@ -121,7 +121,12 @@
                     _applyChange();
 
                     if(angular.isDefined(scope.ssChange))
-                        scope.ssChange(scope.ssModel);
+                    {
+                        if(angular.equals(scope.ssModel, {}))
+                            scope.ssChange(false);
+                        else
+                            scope.ssChange(scope.ssModel);
+                    }
                 });
 
                 scope.$watch('ssData', function () {
