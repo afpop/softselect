@@ -269,6 +269,9 @@
                     }
                     else
                     {
+                        if(angular.isUndefined(scope.ssModel) || angular.isUndefined(scope.ssField))
+                            return false;
+
                         return scope.ssModel[scope.ssField.text] === item[scope.ssField.text];
                     }
                 }
