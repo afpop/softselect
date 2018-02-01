@@ -60,9 +60,19 @@
                         hookDropDown();
 
                         if(scope.ssMany)
+                        {
+                            if(angular.isUndefined(scope.ssModel))
+                                scope.ssModel = [];
+
                             scope.inputFilter = scope.dropdown.querySelector(".filter");
+                        }
                         else
+                        {
+                            if(angular.isUndefined(scope.ssModel))
+                                scope.ssModel = {};
+
                             scope.inputFilter = scope.dropdown.querySelector(".form-control");
+                        }
 
                         scope.first = false;
                     }
