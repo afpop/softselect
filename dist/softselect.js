@@ -379,7 +379,7 @@
 
                         scope.isOpen = false;
 
-                        if(angular.isDefined)
+                        if(angular.isDefined(scope.ssModel) && angular.isDefined(scope.ssField) && angular.isDefined(scope.ssFilter))
                         {
                             if(scope.ssModel[scope.ssField.text] !== scope.ssFilter)
                                 scope.ssFilter = scope.ssModel[scope.ssField.text];
