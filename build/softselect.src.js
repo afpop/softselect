@@ -117,6 +117,7 @@
 
                     _applyChange();
 
+                    scope.ssChange(scope.ssModel);
                 });
 
                 scope.$watch('ssData', function () {
@@ -144,13 +145,22 @@
 
                     if(scope.ssMany)
                     {
-                        angular.forEach(scope.ssModel, function(item){
+                        if(scope.ssModel.length === scope.orderedData.length)
+                        {
+                            scope.allSelected = true;
+                        }
+                        else
+                        {
+                            scope.allSelected = false;
 
-                            var itemIndex = scope.orderedData.findIndex(function (array_item) { return array_item[scope.ssField.value] === item[scope.ssField.value] });
+                            angular.forEach(scope.ssModel, function(item){
 
-                            if(itemIndex > -1   )
-                                scope.orderedData[itemIndex].selected = true;
-                        });
+                                var itemIndex = scope.orderedData.findIndex(function (array_item) { return array_item[scope.ssField.value] === item[scope.ssField.value] });
+
+                                if(itemIndex > -1   )
+                                    scope.orderedData[itemIndex].selected = true;
+                            });
+                        }
                     }
                     else
                     {
@@ -221,7 +231,7 @@
 
                     angular.forEach(scope.filteredData, function(item){
 
-                        var _selected = _isSelected(item) ? "<span class='fa fa-check'></span>" : "";
+                        var _selected = _isSelected(item) || scope.allSelected ? "<span class='fa fa-check'></span>" : "";
                         var _html = "<li class='item' ng-click='select(" + item[scope.ssField.value] + ")'>" + item[scope.ssField.text] + _selected + "</li>";
 
                         angular.element( scope.dropdownList).append( $compile(_html)(scope) );
@@ -241,6 +251,8 @@
                             scope.ssModel = scope.ssModel.filter(function (array_item) { return array_item[scope.ssField.value] !== value });
                         else
                             scope.ssModel.push(item);
+
+                        scope.ssChange(scope.ssModel);
                     }
                     else
                     {
