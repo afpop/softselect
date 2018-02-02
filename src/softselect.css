@@ -205,10 +205,15 @@
 }
 
 .softselect .selected-clear{
-    position: absolute;
-    top:0;
-    right: 12px;
-    line-height:34px;
+     position: absolute;
+     top:0;
+     right: 12px;
+     line-height:34px;
+ }
+
+.softselect .selected-clear.all{
+    padding-left: 7px;
+    border-left: 1px solid #ccc;
 }
 /** RETIRA PROPRIEDADE QUE TORNA O ELEMENTO RELATIVO AO MODAL **/
 
