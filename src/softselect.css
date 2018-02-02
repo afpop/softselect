@@ -208,11 +208,12 @@
      position: absolute;
      top:0;
      right: 12px;
-     line-height:34px;
+     line-height:33px;
  }
 
 .softselect .selected-clear.all{
-    padding-left: 7px;
+    padding: 0px 6px;
+    right: 0;
     border-left: 1px solid #ccc;
 }
 /** RETIRA PROPRIEDADE QUE TORNA O ELEMENTO RELATIVO AO MODAL **/
