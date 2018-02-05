@@ -115,7 +115,7 @@
                     var dropdown_height = $(dropdown).height();
                     var dropdown_width = $(dropdown).width();
 
-                    var dropdownMenu_height = dropdownMenu.offsetHeight;
+                    var dropdownMenu_height = $(dropdownMenu).height() < 0 ? 150 : $(dropdownMenu).height();
 
                     var dropdownMenu_top = (dropdown_top + dropdown_height ) - window_scroll;
 
