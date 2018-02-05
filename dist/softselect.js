@@ -187,10 +187,17 @@
                     }
                     else
                     {
-                        if(angular.isUndefined(scope.ssModel))
+                        if(angular.isUndefined(scope.ssModel) && scope.ssModel !== null)
                             return;
 
-                        var dataItem = scope.orderedData.filter(function (array_item) { return array_item[scope.ssField.value] === scope.ssModel[scope.ssField.value] });
+                        var dataItem = scope.orderedData.filter(function (array_item) {
+
+                            if(array_item === null || scope.ssModel === null)
+                                return false;
+
+                            return array_item[scope.ssField.value] === scope.ssModel[scope.ssField.value];
+
+                        });
 
                         if(dataItem)
                             dataItem.selected = true;
@@ -306,7 +313,7 @@
                     }
                     else
                     {
-                        if(angular.isUndefined(scope.ssModel) || angular.isUndefined(scope.ssField))
+                        if(angular.isUndefined(scope.ssModel) || angular.isUndefined(scope.ssField) || scope.ssModel === null || scope.ssField === null)
                             return false;
 
                         return scope.ssModel[scope.ssField.text] === item[scope.ssField.text];
