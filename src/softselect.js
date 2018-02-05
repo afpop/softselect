@@ -195,7 +195,8 @@
                         if(dataItem)
                             dataItem.selected = true;
 
-                        scope.ssFilter = scope.ssModel[scope.ssField.text];
+                        if(angular.isDefined(scope.ssModel) && angular.isDefined(scope.ssField))
+                            scope.ssFilter = scope.ssModel[scope.ssField.text];
                     }
                 }
 
