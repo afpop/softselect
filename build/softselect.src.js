@@ -69,12 +69,12 @@
 
                     if(scope.ssMany)
                     {
-                        if (angular.isUndefined(scope.ssModel))
+                        if (angular.isUndefined(scope.ssModel) || scope.ssModel === null)
                             scope.ssModel = [];
                     }
                     else
                     {
-                        if(angular.isUndefined(scope.ssModel))
+                        if(angular.isUndefined(scope.ssModel) || scope.ssModel === null)
                             scope.ssModel = {};
                     }
 
