@@ -109,9 +109,12 @@
 
                 function _redimensionarFiltro(){
 
-                    var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 1.66 : scope.ssModel.length) * 60 + 33);
+                    if(angular.isDefined(scope.ssModel) && scope.ssModel !== null && scope.ssMany)
+                    {
+                        var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 1.66 : scope.ssModel.length) * 60 + 33);
 
-                    $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
+                        $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
+                    }
                 }
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
