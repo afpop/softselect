@@ -108,9 +108,9 @@
                 };
 
                 function _redimensionarFiltro(){
-                    var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 2 : scope.ssModel.length) * 60 + 60);
+                    var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 2 : scope.ssModel.length) * 60 + 55);
 
-                    $(".selected-input").css("width", width + "px");
+                    $(scope.dropdown.querySelector(".selected-input").css("width", width + "px");
                 }
 
                 function renderDropDownMenu(dropdown, dropdownMenu){
