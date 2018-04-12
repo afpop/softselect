@@ -289,6 +289,8 @@
 
                 scope.ss_select = function(value){
 
+                    value = String(value);
+
                     var item = scope.orderedData.filter(function (array_item) { return String(array_item[scope.ssField.value]) === value })[0];
 
                     if(scope.ssMany)
