@@ -39,7 +39,7 @@
                 scope.ss_selectAll = _ssSelectAll;
                 scope.ss_clearAll = _clearAll;
 
-                scope.dropdown = null;
+                scope.dropdown = element[0];
                 scope.dropdownMenu = null;
                 scope.dropTop = 0;
                 scope.dropLeft = 0;
@@ -109,10 +109,7 @@
 
                 function _redimensionarFiltro(){
 
-                    if(angular.isUndefined(scope.dropdown))
-                        scope.dropdown = element[0];
-
-                    var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 2 : scope.ssModel.length) * 60 + 60);
+                    var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 1.66 : scope.ssModel.length) * 60 + 33);
 
                     $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
                 }

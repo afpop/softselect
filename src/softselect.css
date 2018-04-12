@@ -201,6 +201,7 @@
 
 .has-feedback .form-control{
     padding-left: 2px;
+    padding-right: 0 !important;
 }
 
 .softselect .selected-clear{
