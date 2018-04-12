@@ -293,10 +293,10 @@
 
                     if(scope.ssMany)
                     {
-                        var selected = scope.ssModel.some(function (array_item) { return array_item[scope.ssField.value] === value });
+                        var selected = scope.ssModel.some(function (array_item) { return String(array_item[scope.ssField.value]) === value });
 
                         if(selected)
-                            scope.ssModel = scope.ssModel.filter(function (array_item) { return array_item[scope.ssField.value] !== value });
+                            scope.ssModel = scope.ssModel.filter(function (array_item) { return String(array_item[scope.ssField.value]) !== value });
                         else
                             scope.ssModel.push(item);
 
@@ -305,7 +305,7 @@
                     }
                     else
                     {
-                        if(scope.ssModel[scope.ssField.value] === value)
+                        if(String(scope.ssModel[scope.ssField.value]) === value)
                             scope.ssModel = {};
                         else
                             scope.ssModel = item;
