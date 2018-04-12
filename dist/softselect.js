@@ -108,6 +108,10 @@
                 };
 
                 function _redimensionarFiltro(){
+
+                    if(angular.isUndefined(scope.dropdown))
+                        scope.dropdown = element[0];
+
                     var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 2 : scope.ssModel.length) * 60 + 60);
 
                     $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
