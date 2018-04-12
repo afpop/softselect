@@ -182,6 +182,9 @@
 
                     if(scope.ssMany)
                     {
+                        if(angular.isUndefined(scope.ssModel) || scope.ssModel === null)
+                            return;
+
                         if(scope.ssModel.length === scope.orderedData.length)
                         {
                             scope.allSelected = true;
@@ -323,15 +326,15 @@
 
                 function _isSelected(item)
                 {
+                    if(angular.isUndefined(scope.ssModel) || angular.isUndefined(scope.ssField) || scope.ssModel === null || scope.ssField === null)
+                        return false;
+
                     if(scope.ssMany)
                     {
                         return scope.ssModel.some(function (array_item) { return array_item[scope.ssField.value] === item[scope.ssField.value] });
                     }
                     else
                     {
-                        if(angular.isUndefined(scope.ssModel) || angular.isUndefined(scope.ssField) || scope.ssModel === null || scope.ssField === null)
-                            return false;
-
                         return scope.ssModel[scope.ssField.text] === item[scope.ssField.text];
                     }
                 }
