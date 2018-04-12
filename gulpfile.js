@@ -8,6 +8,7 @@ var del          = require('del');
 gulp.task('scripts', function() {
     return gulp.src(['src/**/*.js'])
         .pipe(concat('softselect.src.js'))
+        //.pipe(uglify())
         .pipe(gulp.dest('build'));
 });
 
@@ -21,7 +22,7 @@ gulp.task('build-prod', ['scripts','css','template'], function() {
     return gulp.src(['build/**/*.js'])
         .pipe(concat('softselect.js'))
         .pipe(gulp.dest('dist'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(rename('softselect.min.js'))
         .pipe(gulp.dest('dist'));
 });

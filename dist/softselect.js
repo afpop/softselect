@@ -292,10 +292,11 @@
                     value = String(value);
 
                     var item = scope.orderedData.filter(function (array_item) { return String(array_item[scope.ssField.value]) === value })[0];
+                    var selected = false;
 
                     if(scope.ssMany)
                     {
-                        var selected = scope.ssModel.some(function (array_item) { return String(array_item[scope.ssField.value]) === value });
+                        selected = scope.ssModel.some(function (array_item) { return String(array_item[scope.ssField.value]) === value });
 
                         if(selected)
                             scope.ssModel = scope.ssModel.filter(function (array_item) { return String(array_item[scope.ssField.value]) !== value });
@@ -318,7 +319,9 @@
                     if(scope.ssMany)
                     {
                         scope.ssFilter = "";
-                        scope.inputFilter.focus();
+
+                        if(!selected)
+                            scope.inputFilter.focus();
                     }
                     else
                         scope.isOpen = false;
