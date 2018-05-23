@@ -51,6 +51,10 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
             vm.data = vm.dataB;
         }
 
+        vm.limparData = function(){
+            vm.data = [];
+        }
+
         vm.callback = function(teste){
             console.log(teste);
         }
