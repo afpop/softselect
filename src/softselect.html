@@ -11,7 +11,7 @@
 
                         <input class="form-control" style="padding-left: 7px !important;" ng-model="ssFilter" placeholder="Selecionar...">
 
-                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value]" aria-hidden="true"></span>
+                        <span class="fa fa-caret-down form-control-feedback" ng-hide="ssModel[ssField.value] || ssData === 0" aria-hidden="true"></span>
 
                     </div>
 
@@ -53,7 +53,7 @@
 
         </div>
 
-        <div class="softselect-loading" ng-show="ssData.length <= 0">
+        <div class="softselect-loading" ng-show="ssData === 0">
 
             <div class="sk-fading-circle">
                 <div class="sk-circle1 sk-circle"></div>
@@ -72,11 +72,12 @@
 
         </div>
 
-        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value]" ng-click="ss_clearAll($event)" title="Limpar"></span>
+        <span class="fa fa-times selected-clear" style="cursor:pointer" ng-show="ssModel[ssField.value] && ssData !== 0" ng-click="ss_clearAll($event)" title="Limpar"></span>
 
-        <span ng-show="ssMany" class="fa fa-reply-all selected-clear all" style="cursor:pointer" ng-click="ss_selectAll($event)" title="Selecionar Todos"></span>
+        <span ng-show="ssMany && ssData !== 0" class="fa fa-reply-all selected-clear all" style="cursor:pointer" ng-click="ss_selectAll($event)" title="Selecionar Todos"></span>
 
         <div ng-show="isOpen" class="softdown-menu scroll-4" ng-style="{top: dropTopFixed + 'px', left: dropLeftFixed + 'px', minWidth: dropWidthFixed + 'px'}">
+
 
                 <ul class="softdown-list" ng-click="$event.stopPropagation()">
 

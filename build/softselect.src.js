@@ -275,6 +275,15 @@
                         scope.filteredData = $filter('filter')(scope.orderedData, scope.ssFilter, customComparator);
                     }
 
+                    if(angular.isDefined(scope.ssField.filter)){
+
+                        if(angular.isUndefined((scope.ssField.filter.active)))
+                            scope.ssField.filter.active = true;
+
+                        if(scope.ssField.filter.active)
+                            scope.filteredData = scope.filteredData.filter(scope.ssField.filter.callback);
+                    }
+
                     scope.filteredData = $filter('limitTo')(scope.filteredData, scope.selectLimit);
 
                     angular.forEach(scope.filteredData, function(item){

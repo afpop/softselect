@@ -189,8 +189,11 @@
     right: 2px;
     width: 30px;
     height: 30px;
-    background-color: #fff;
-    z-index: 1;
+    z-index: 2;
+}
+
+.softselect-loading .sk-circle{
+    margin: 0; !important;
 }
 
 .softselect .form-group{
