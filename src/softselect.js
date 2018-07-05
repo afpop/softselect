@@ -275,7 +275,7 @@
                         scope.filteredData = $filter('filter')(scope.orderedData, scope.ssFilter, customComparator);
                     }
 
-                    if(angular.isDefined(scope.ssField.filter)){
+                    if(angular.isDefined(scope.ssField) && angular.isDefined(scope.ssField.filter)){
 
                         if(angular.isUndefined((scope.ssField.filter.active)))
                             scope.ssField.filter.active = true;
