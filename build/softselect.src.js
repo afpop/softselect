@@ -113,7 +113,10 @@
                     {
                         var width = ($(scope.dropdown).width()) - ( (scope.ssModel.length > 2 ? 1.66 : scope.ssModel.length) * 60 + 33);
 
-                        $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
+                        if(width > 0)
+                            $(scope.dropdown.querySelector(".selected-input")).css("width", width + "px");
+                        else
+                            $(scope.dropdown.querySelector(".selected-input")).css("width", "100%");
                     }
                 }
 
