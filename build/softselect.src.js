@@ -17,7 +17,8 @@
                 ssMany: "<?",
                 ssChange: "=",
                 ssTabindex: "=tabindex",
-                ssDisabled: "="
+                ssDisabled: "=",
+                ssText: "="
             },
             templateUrl: "softselect.html",
             link: function(scope, element, attributes){
@@ -33,6 +34,9 @@
                 scope.scrollParent = null;
                 scope.first = true;
                 scope.orderedData = [];
+
+                if(angular.isUndefined(scope.ssText))
+                    scope.ssText = "Selecionar...";
 
                 // Method Binding
                 scope.getFilteredData = _getFilteredData;
