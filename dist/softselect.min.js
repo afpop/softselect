@@ -18,7 +18,7 @@
                 ssChange: "=",
                 ssTabindex: "=tabindex",
                 ssDisabled: "=",
-                ssText: "="
+                ssText: "=?"
             },
             templateUrl: "softselect.html",
             link: function(scope, element, attributes){
