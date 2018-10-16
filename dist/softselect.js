@@ -166,7 +166,8 @@
 
                     if(angular.isDefined(scope.ssData))
                     {
-                        scope.orderedData = $filter('orderBy')(scope.ssData, scope.ssField.orderby);
+                        if(angular.isDefined(scope.ssField))
+                            scope.orderedData = $filter('orderBy')(scope.ssData, scope.ssField.orderby);
 
                         _applyChange();
 
