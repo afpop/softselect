@@ -182,7 +182,7 @@
                     if(angular.isDefined(scope.ssFilter))
                     {
                         if(angular.isDefined(scope.ssSearch))
-                            scope.ssSearch();
+                            scope.ssSearch(scope.ssFilter);
 
                         _getFilteredData();
                     }
