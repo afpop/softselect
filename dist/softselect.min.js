@@ -18,7 +18,8 @@
                 ssChange: "=",
                 ssTabindex: "=tabindex",
                 ssDisabled: "=",
-                ssText: "=?"
+                ssText: "=?",
+                ssSearch: "=?"
             },
             templateUrl: "softselect.html",
             link: function(scope, element, attributes){
@@ -179,7 +180,13 @@
                 scope.$watch('ssFilter', function(){
 
                     if(angular.isDefined(scope.ssFilter))
+                    {
+                        if(angular.isDefined(scope.ssSearch))
+                            scope.ssSearch();
+
                         _getFilteredData();
+                    }
+
                 });
 
                 function _applyChange(){
