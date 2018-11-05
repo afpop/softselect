@@ -52,7 +52,7 @@ angular.module('todoApp', ['softselect.directive','ngSanitize'])
         }
 
         vm.limparData = function(){
-            vm.data = 0;
+            vm.loading = !vm.loading;
         }
 
         vm.callback = function(teste){

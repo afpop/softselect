@@ -19,7 +19,8 @@
                 ssTabindex: "=tabindex",
                 ssDisabled: "=",
                 ssText: "=?",
-                ssSearch: "=?"
+                ssSearch: "=?",
+                ssLoading: "=?"
             },
             templateUrl: "softselect.html",
             link: function(scope, element, attributes){
